@@ -1,0 +1,10 @@
+I = imread('rice.png');
+background = imopen(I,strel('disk',15));
+I2 = I - background;
+I3 = imadjust(I2);
+bw = imbinarize(I3);
+bw = bwareaopen(bw, 50);
+cc = bwconncomp(bw, 4);
+grain = false(size(bw));
+grain(cc.PixelIdxList{50}) = true;
+imshow(grain);
